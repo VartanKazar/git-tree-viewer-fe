@@ -1,7 +1,7 @@
 /* Browser css reset */
-html {
-  width: 100vw;
-  height: 100vh;
+html, body, #root {
+  width: 100%;
+  height: 100%;
   margin: 0px;
   padding: 0px;
   font-size: 16px;
@@ -9,32 +9,31 @@ html {
   background-color: #EFEFEF;
 }
 
-body, #root {
-  width: 100vw;
-  height: 100vh;
-}
-
 :root {
   --primary-color: #EFEFEF;
   --primary-text: black;
   --secondary-text: #A9A9A9;
   --highlight-color-red: #FF3B3F;
-  --highlight-color-sky: #CAEBF2;
+  --highlight-color-sky: #4ddcfc;
 }
 
 .App {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
 }
 
-.graph-page {
+.home-page {
   display: flex;
+  gap: 1rem;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  height: 100%;
   padding: 25px;
 }
 
-.graph-page-form {
+.home-page-form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,11 +42,26 @@ body, #root {
   width: 100%;
 }
 
+.repo-selection-page {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+  padding: 25px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  padding: 0px;
+  margin: 0px;
+}
+
 textarea {
-  padding-top: auto;
-  padding-bottom: auto;
-  padding-left: 5px;
-  color: var(--secondary-text);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  color: var(--primary-text);
   background-color: white;
   border-radius: 3px;
   border: solid 1.4px rgba(204, 204, 204, 0.8);
@@ -56,8 +70,10 @@ textarea {
   width: 100%;
   max-width: 40rem;
   min-width: 15rem;
+  height: 1rem;
+  overflow: hidden;
+  border-radius: 0.5rem;
 }
-
 
 textarea:focus {
   outline: transparent;
@@ -65,27 +81,89 @@ textarea:focus {
   box-shadow: inset 1px 2px 4px 0px rgb(150, 150, 150);
 }
 
+textarea::placeholder{
+  color: var(--secondary-text);
+  font-style: italic;
+}
+
 label {
   color: var(--primary-text);
   font-size: 1.2rem;
 }
 
-.search-icon {
+.primary-button {
   cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 5rem;
+  height: 5rem;
   color: white;
-  background-color: rgba(0,150,255,0.8);
-  padding: 0.5rem;
-  border-radius: 1.5rem;
+  background-color: var(--highlight-color-sky);
+  opacity: 0.7;
+  border-radius: 3rem;
+  border-width: 0px;
   transition: 0.25s;
-  box-shadow: 1px 1px 1px 0px rgb(120, 120, 120);
+  box-shadow: 1px 1px 2px 0px rgb(120, 120, 120);
 }
 
-.search-icon:hover {
+.primary-button:disabled {
+  cursor: default;
+  box-shadow: none;
+  filter: grayscale(100);
+}
+
+.primary-button:hover:not(:disabled) {
   transition: 0.25s;
   scale: 1.1;
-  background-color: rgba(0,200,255,1);
-  box-shadow: 1px 1px 4px 0px rgb(85, 85, 85);
+  opacity: 1;
+  box-shadow: 1px 1px 6px 0px rgb(85, 85, 85);
 }
 
+.button-icon {
+  width: 75%;
+  height: 75%;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: auto;
+  max-height: 80vh;
+  max-width: 80%;
+  background-color: white;
+  z-index: 100;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.search-results-container > div {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.search-results-container > div:nth-child(odd) {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.search-results-container > div:hover {
+  background-color: rgb(0, 255, 0);
+  box-shadow: 2px 2px 6px 0px rgb(85, 85, 85);
+  transition: 0.25s;
+  scale: 101%;
+}
+
+.repo-selection-item {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+}
